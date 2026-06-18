@@ -1,8 +1,6 @@
-FROM 3proxy/3proxy:latest
+FROM serjs/go-socks5-proxy:latest
 
-COPY 3proxy.cfg /etc/3proxy/3proxy.cfg
+EXPOSE 1080
 
-EXPOSE 1080 3128
-
-# Mantém o container vivo se der erro + mostra log
-CMD ["sh", "-c", "cat /etc/3proxy/3proxy.cfg && 3proxy /etc/3proxy/3proxy.cfg || echo '=== ERRO NO 3PROXY ===' && tail -f /dev/null"]
+# Mantém o container vivo caso dê erro
+CMD ["sh", "-c", "echo 'Proxy iniciado na porta 1080' && /app/socks5 -user=meuusuario -pass=suaSenhaForte123 -port=1080 || tail -f /dev/null"]
